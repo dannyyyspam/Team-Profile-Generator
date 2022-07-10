@@ -23,3 +23,7 @@ test('test if we can get the email from the getEmail() method', () => {
 test('test if we can get the github username from the getGithubUsername() method', () => {
     expect(engineer.getGithubUsername()).toBe('dannyyyspam');
 });
+
+test('test if we can get the role from the getRole() method', () => {
+    expect(engineer.getRole()).toBe('Engineer');
+});

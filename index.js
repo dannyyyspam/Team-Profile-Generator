@@ -1,5 +1,13 @@
 const inquirer = require('inquirer');
-const { writeFile, copyFile } = require('./src/generate-site.js');
+const Manager = require('./lib/Manager.js');
+const Engineer = require('./lib/Engineer.js');
+const Intern = require('./lib/Intern.js');
+const generateSite = require('./src/generate-site.js');
+const fs = require("fs");
+const path = require("path");
+const OUTPUT_DIR = path.resolve(__dirname, "dist");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+const teamMember = [];
 
 const promptManager = () => {
     return inquirer.prompt([
@@ -55,31 +63,47 @@ const promptManager = () => {
                 }
             }
         },
+    ]).then(answers => {
+        console.log(answers);
+        const manager = new Manager(answers.name, answers.employeeID, answers.email, answers.officeNumber);
+        teamMembers.push(manager);
+        promptMenu();
+    })
+};
+
+const promptMenu = () => {
+    return inquirer.prompt([
         {
             type: 'list',
             name: 'menu',
             message: 'Please select which option you would like to continue with:',
             choices: ['add an engineer', 'add an intern', 'finish building my team']
-        }
-    ]);
+        }])
+        .then(userChoice => {
+            switch (userChoice.menu) {
+                case "add an engineer":
+                    promptEngineer();
+                    break;
+                case "add an intern":
+                    promptIntern();
+                    break;
+                default:
+                    buildTeam();
+            }
+        });
 };
 
-const promptEmployee = employeeData => {
+const promptEngineer = () => {
     console.log(`
     ===============
-    Add a New Employee
+    Add a New Engineer
     ===============
     `);
-
-    // If there's no 'employees' array property, create one
-    if (!employeeData.employees) {
-        employeeData.employees = [];
-    }
 
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'engineerName',
+            name: 'name',
             message: 'What is the name of engineer? (Required)',
             validate: engineerName => {
                 if (engineerName) {
@@ -129,32 +153,25 @@ const promptEmployee = employeeData => {
                 }
             }
         }
-    ]).then(employeeData => {
-        employeeData.employees.push(employeeData);
-        if (employeeData.confirmAddEmployee) {
-            return promptProject(employeeData);
-        } else {
-            return employeeData;
-        }
-    });
+    ]).then(answers => {
+        console.log(answers);
+        const engineer = new Engineer(answers.name, answers.employeeID, answers.email, answers.githubUsername);
+        teamMember.push(engineer);
+        promptMenu();
+    })
 };
 
-const promptIntern = internData => {
+const promptIntern = () => {
     console.log(`
     ===============
     Add a New Intern
     ===============
     `);
 
-    // If there's no 'employees' array property, create one
-    if (!internData.interns) {
-        internData.interns = [];
-    }
-
     return inquirer.prompt([
         {
             type: 'input',
-            name: 'internName',
+            name: 'name',
             message: 'What is the name of the intern? (Required)',
             validate: internName => {
                 if (internName) {
@@ -193,46 +210,37 @@ const promptIntern = internData => {
         },
         {
             type: 'input',
-            name: 'githubUsername',
-            message: 'Enter your Github username. (Required)',
+            name: 'school',
+            message: 'Enter your school name. (Required)',
             validate: githubUsername => {
                 if (githubUsername) {
                     return true;
                 } else {
-                    console.log('Please enter your Github username!');
+                    console.log('Please enter your school name!');
                     return false;
                 }
             }
         }
-    ]).then(internData => {
-        internData.interns.push(internData);
-        if (internData.confirmAddIntern) {
-            return promptIntern(internData);
-        } else {
-            return internData;
-        }
-    });
+    ]).then(answers => {
+        console.log(answers);
+        const intern = new Intern(answers.name, answers.employeeID, answers.email, answers.school);
+        teamMember.push(intern);
+        promptMenu();
+    })
 };
 
-promptManager()
-    .then(promptEmployee)
-    .then(employeeData => {
-        return generatePage(employeeData);
-    })
-    .then(promptIntern)
-    .then(internData => {
-        return generatePage(internData);
-    })
-    .then(pageHTML => {
-        return writeFile(pageHTML);
-    })
-    .then(writeFileResponse => {
-        console.log(writeFileResponse);
-        return copyFile();
-    })
-    .then(copyFileResponse => {
-        console.log(copyFileResponse);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+const buildTeam = () => {
+    console.log(`
+    ===============
+    Finished building my team!
+    ===============
+    `);
+
+    // Create the output directory if the output path doesn't exist
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, generateSite(teamMembers), "utf-8");
+}
+
+promptManager();
