@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 const OUTPUT_DIR = path.resolve(__dirname, "dist");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-const teamMember = [];
+const teamMembers = [];
 
 const promptManager = () => {
     return inquirer.prompt([
