@@ -31,8 +31,7 @@ const generateTeam = (team) => {
            <i class="fas fa-glasses"></i>Engineer</div>
            <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${engineer.id}</li>
-            <li class="list-group-item">Email: <span id="email">${engineer.email}</span></li>
-            <li class="list-group-item">Github Username: ${engineer.githubUsername}</li>
+            <li class="list-group-item">Email: <span id="email"><a href="mailto:${engineer.email}">${engineer.email}</a></span></li>            <li class="list-group-item">Github Username: ${engineer.githubUsername}</li>
             </ul>
         </div>
         `;
@@ -47,8 +46,7 @@ const generateTeam = (team) => {
            <i class="fas fa-user-graduate"></i>Intern</div>
            <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${intern.id}</li>
-            <li class="list-group-item">Email: <span id="email">${intern.email}</span></li>
-            <li class="list-group-item">School: ${intern.school}</li>
+            <li class="list-group-item">Email: <span id="email"><a href="mailto:${intern.email}">${intern.email}</a></span></li>            <li class="list-group-item">School: ${intern.school}</li>
             </ul>
         </div>
         `;
