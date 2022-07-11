@@ -31,8 +31,7 @@ const generateTeam = (team) => {
            <i class="fas fa-glasses"></i>Engineer</div>
            <ul class="list-group list-group-flush">
             <li class="list-group-item">ID: ${engineer.id}</li>
-            <li class="list-group-item">Email: <span id="email"><a href="mailto:${engineer.email}">${engineer.email}</a></span></li>            <li class="list-group-item">Github Username: ${engineer.githubUsername}</li>
-            </ul>
+            <li class="list-group-item">Github Username: <a target="_blank" href="https://github.com/${engineer.githubUsername}">${engineer.githubUsername}</a></li>            </ul>
         </div>
         `;
         html.push(engineerHtml);
