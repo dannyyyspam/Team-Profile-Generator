@@ -1,5 +1,3 @@
-const Manager = require("../lib/Manager.js");
-
 const generateTeam = (team) => {
     console.log(team);
     // Create an empty array to push html elements on to and loop through the team data

@@ -212,8 +212,8 @@ const promptIntern = () => {
             type: 'input',
             name: 'school',
             message: 'Enter your school name. (Required)',
-            validate: githubUsername => {
-                if (githubUsername) {
+            validate: school => {
+                if (school) {
                     return true;
                 } else {
                     console.log('Please enter your school name!');
