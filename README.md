@@ -19,7 +19,7 @@ When prompted for team members and their information, then an HTML is generated 
 
 ## Installation
 
-To install this application, clone the code into your terminal for the respective repository. Then, install npm by entering the command ```npm init```  into the terminal. Inquirer must then be installed by entering ```npm install inquirer```. Finally, the program can then be run by entering ```node develop/index.js``` into the command line, and answering each question appropriately.
+To install this application, clone the code into your terminal for the respective repository. Then, install npm by entering the command ```npm init```  into the terminal. Inquirer must then be installed by entering ```npm i inquirer@8.2.4```. Finally, the program can then be run by entering ```node index.js``` into the command line, and answering each question appropriately.
 
 ```JavaScript
 npm install inquirer
@@ -42,7 +42,7 @@ var inquirer = require('inquirer');
 ```
  
 ## Usage
-Inquirer is easiest to use when installed with npm:  ``` npm install inquirer ```. Then you can load the module into your code with a require call: ``` const inquirer = require(‘inquirer’); ```
+Inquirer is easiest to use when installed with npm:  ``` npm i inquirer@8.2.4 ```. Then you can load the module into your code with a require call: ``` const inquirer = require(‘inquirer’); ```
 1. Enter management information
 2. You will be redirected to a menu, where you can choose to add an engineer, add an intern, or end the application
 3. If you choose to add an engineer or an intern, you will be reprompted to the menu until you choose to end the application
@@ -71,4 +71,4 @@ The Github page for this project can be accessed using the following link: https
 
   
 Below is link to my demo video:
-- [Link to Demo Video]()
+- [Link to Demo Video](https://youtu.be/DUA3nhskSJY)
